@@ -1,8 +1,20 @@
 * {
   box-sizing: border-box;
 }
+body{
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+.calculatorCover{
+  border: red;
+  padding: 25px;
+  background-color: red;
+
+}
 #calculator {
   border: 2px solid red;
+  background-color: rgb(209, 175, 132);
   border-radius: 15px;
   width: 400px;
 }
@@ -13,9 +25,10 @@
   border-radius: 10px;
 }
 .displaySmall {
-  border: 1px dashed greenyellow;
+  border: 1px dashed rgb(159, 186, 118);
+
   font-size: 25px;
-  padding: 3px 15px;
+  padding: 3px 20px;
   height: 50px;
   display: flex;
   justify-content: end;
@@ -24,18 +37,19 @@
 .displayBig {
   height: 75px;
   font-size: 35px;
-  padding: 5px 15px;
+  padding: 5px 20px;
   display: flex;
   justify-content: end;
   align-items: end;
 }
 
 button {
-  border-radius: 15px;
+  border-radius: 5px;
   font-size: large;
   font-weight: 500;
   padding: 20px;
-  margin: 5px;
+  /* margin: 5px; */
+  background-color: rgb(185, 227, 213);
 }
 
 .digit,
@@ -46,24 +60,62 @@ button {
   width: 25%;
 }
 
+
+.operator{
+  background-color: rgb(247, 144, 132);
+}
+
 #allClear,
 #clear {
   width: 50%;
   font-size: x-large;
   font-weight: 500;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #backspace{
   height: 50px;
 }
 /* row one styles */
 .row.one {
-  border: 2px solid rgb(129, 224, 129);
+  /* border: 2px solid rgb(129, 224, 129); */
+  background-color: aliceblue;
   display: flex;
+
+  height: 200px;
+  /* justify-content: center; */
+  align-items: flex-end;
+  gap: 10px;
 }
+
+.row{
+  display: flex;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
 .row.two {
   border: 2px solid rgb(61, 114, 137);
   display: flex;
-  /* width: 100%; */
+  width: 100%;
 }
 
 .row.three {
@@ -79,4 +131,4 @@ button {
 .row.five {
   border: 2px solid rgb(91, 37, 156);
   display: flex;
-}
+}  */
