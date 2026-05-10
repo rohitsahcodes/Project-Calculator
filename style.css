@@ -1,55 +1,79 @@
 * {
   box-sizing: border-box;
+  color: rgb(38, 38, 72);;
 }
-body{
+
+body {
   display: flex;
   justify-content: center;
-  /* align-items: center; */
-}
-.calculatorCover{
-  border: red;
-  padding: 25px;
-  background-color: red;
+  align-items: center;
 
+  min-height: 80vh;
 }
-#calculator {
-  border: 2px solid red;
-  background-color: rgb(209, 175, 132);
+
+.calculatorOuter{
+  border: 2px solid rgb(82, 70, 70);
   border-radius: 15px;
-  width: 400px;
+  padding: 15px;
+  background-color: rgb(196, 231, 217);
+
+  width: fit-content;
+  
 }
+#calculatorInner {
+  /* displayflex is used so that i can use flex:1; on it's two child i.e. display and row i.e. multiple line  */
+  display: flex;       
+  flex-direction: column;
+  width: 300px;
+  height: 450px;
+  /* border: 2px solid green; */
+}
+
+
+/* display section css */
 #display {
-  border: 2px dotted black;
+  border: 2px solid rgb(85, 74, 74);
+  background-color: rgb(232, 228, 222);
+  padding: 10px;
+  margin-bottom: 2vh;
+  border-radius: 5px;
+
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
+  align-items: flex-end;
+  justify-content: center;
+
+  flex: 2;
+}
+
+.displayBig,
+.displaySmall{
+  /* border: 2px solid pink; */
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  /* text-align: end; */
+  padding: 2px 15px;
 }
 .displaySmall {
-  border: 1px dashed rgb(159, 186, 118);
-
-  font-size: 25px;
-  padding: 3px 20px;
-  height: 50px;
-  display: flex;
-  justify-content: end;
-  align-items: end;
+  /* border: 2px dashed rgb(159, 186, 118); */
+  font-size: 25px 
 }
 .displayBig {
-  height: 75px;
   font-size: 35px;
-  padding: 5px 20px;
-  display: flex;
-  justify-content: end;
-  align-items: end;
+  
 }
 
+/* for all buttons which doesn't inclue display section */
 button {
   border-radius: 5px;
+  border-color: rgb(103, 73, 73);
   font-size: large;
   font-weight: 500;
-  padding: 20px;
-  /* margin: 5px; */
-  background-color: rgb(185, 227, 213);
+  padding: 0;
+  background-color: rgb(221, 238, 232);
+
+  flex: 1;
 }
 
 .digit,
@@ -57,43 +81,47 @@ button {
 #equals {
   font-size: x-large;
   font-weight: 500;
-  width: 25%;
 }
 
 
 .operator{
-  background-color: rgb(247, 144, 132);
+  background-color: rgb(230, 178, 174);
 }
 
+
+/* css for clear and delete button only */
 #allClear,
 #clear {
-  width: 50%;
   font-size: x-large;
   font-weight: 500;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#backspace{
-  height: 50px;
-}
-/* row one styles */
-.row.one {
-  /* border: 2px solid rgb(129, 224, 129); */
-  background-color: aliceblue;
-  display: flex;
+  
+  flex: 1;
 
-  height: 200px;
-  /* justify-content: center; */
-  align-items: flex-end;
-  gap: 10px;
+}
+#allClear{
+  background-color: rgb(183, 183, 240);
+
+
+}
+#clear{
+  background-color: rgb(222, 204, 182);
 }
 
+/* row i.e. other that display content wich also include clear and delete row */
 .row{
   display: flex;
   gap: 10px;
-  margin: 8px 0;
+  margin-top: 8px;
+
+  flex: 1;
+}
+
+.row.one {
+  /* border: 2px solid pink; */
+  display: flex;
+
+  gap: 10px;
+
 }
 
 
@@ -109,26 +137,3 @@ button {
 
 
 
-
-
-/* 
-.row.two {
-  border: 2px solid rgb(61, 114, 137);
-  display: flex;
-  width: 100%;
-}
-
-.row.three {
-  border: 2px solid rgb(101, 220, 198);
-  display: flex;
-}
-
-.row.four {
-  border: 2px solid rgb(161, 68, 190);
-  display: flex;
-}
-
-.row.five {
-  border: 2px solid rgb(91, 37, 156);
-  display: flex;
-}  */
