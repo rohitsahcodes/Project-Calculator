@@ -46,9 +46,7 @@ for (let digit of allDigits) {
 
    
         beforeExpression = operatorPlusBefore;
-        // console.log(operatorPlusBefore);
-        
-        // displaySmall.textContent = beforeExpression + " " + event.target.textContent;
+
 
         displayBig.textContent += event.target.textContent;
 
@@ -62,12 +60,16 @@ for (let digit of allDigits) {
 }
 
 
+//editing previousNumber into firstOperand
+
+
 //when operator button pressed
 let allOperators = document.querySelectorAll(".operator");
 let currentOperator = '';
 let operatorPlusBefore = ``;
 for (let operator of allOperators) {
     operator.addEventListener("click", (event) => {
+        previousNumber = displayBig.textContent;
         displayBig.textContent = "";
         previousClick = currentClick;
         currentClick = event.target.textContent;  //Store which btn is just clicked
@@ -82,14 +84,21 @@ for (let operator of allOperators) {
 
 //when "Equal To" button pressed 
 let equalsBtn = document.querySelector("#equals");
+let soln;
 equalsBtn.addEventListener("click", (event) => {
     previousClick = currentClick;
     currentClick = event.target.textContent;  //Store which btn is just clicked
-    let soln = operate(currentNumber, currentOperator, previousNumber);
+
+    soln = operate(currentNumber, currentOperator, previousNumber);
     displayBig.textContent = soln;
 
     // change current number to calculated ans 
-    previousNumber = soln;
+    previousNumber = currentNumber;
+    currentNumber = soln;
+    console.log(currentNumber);
+    console.log(previousNumber);
+    
+    
 })
 
 
@@ -115,14 +124,12 @@ deleteBtn.addEventListener("click", whenDeleteClick);
 
 
 
-let digits = "1234567890";
-let digitArr = [];
-function checkDigit(digit) {
-    digits.includes((digit));
 
-}
-let operators = "+-*/";
-let equalsTo = "=";
+
+
+
+
+
 
 
 
@@ -168,8 +175,8 @@ function operate(firstOperand, operator, secondOperand) {
 
 //funct to add two numbers
 function add(a, b) {
-    return a + b;
-
+    //changing to number because + on string behave different
+    return parseFloat(a) + parseFloat(b);
 }
 
 //function to subtract two numbers
@@ -184,5 +191,5 @@ function multiply(a, b) {
 
 //function to divide two numbers
 function divide(a, b) {
-    return a / b;
+    return (a  / b);
 }
