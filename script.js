@@ -5,7 +5,7 @@ let displayBig = document.querySelector(".displayBig");
 
 
 
-let firstOperand = 0;
+let firstOperand = "";
 let secondOperand = 0;
 let operatorBtn = "";
 
@@ -34,15 +34,22 @@ for (let digit of allDigits) {
 let allOperators = document.querySelectorAll(".operator");
 for (let operator of allOperators) {
     operator.addEventListener("click", (event) => {
-        firstOperand = currentNumber;
 
-        operatorBtn = event.target.textContent;
+        if (currentNumber === "") {
+            operatorBtn = event.target.textContent;
+            displaySmall.textContent = `${firstOperand} ${operatorBtn} `;
+        } else {
+            firstOperand = currentNumber;
+
+            operatorBtn = event.target.textContent;
 
 
-        displaySmall.textContent = `${firstOperand} ${operatorBtn} `;
+            displaySmall.textContent = `${firstOperand} ${operatorBtn} `;
 
-        displayBig.textContent = "";
-        currentNumber = "";
+            displayBig.textContent = "";
+            currentNumber = "";
+        }
+
 
     })
     // console.log(operatorBtn.textContent);
@@ -65,20 +72,11 @@ equalsBtn.addEventListener("click", (event) => {
     }
 
 
-    //delete this
-    currentNumber = soln;
+    // changing soln to string because slice only works on sting which i am using...
+    currentNumber = String(soln);
 
 
 });
-// //just to check float num.. and make it looks good with important digit showing only
-// let show = operate(6, "÷", 9);
-// // let show = 1001.5
-// if (Number.isInteger(show)) {
-//     displayBig.textContent = show;
-// } else {
-//     displayBig.textContent = parseFloat(show.toFixed(3));
-// }
-
 
 
 //When "CLEAR" button pressed
@@ -93,11 +91,30 @@ clearBtn.addEventListener("click", whenClearClick);
 
 //When "DELETE" button pressed
 let deleteBtn = document.querySelector("#delete");
-function whenDeleteClick() {
-    location.reload();
-    // console.log("Hi, there!");
-}
-deleteBtn.addEventListener("click", whenDeleteClick);
+
+deleteBtn.addEventListener("click", event => {
+
+    //Dont execute delete click when pressed without any content
+    if (currentNumber === "" && firstOperand === "") {
+        return;
+    } else if (currentNumber === "") {
+        operatorBtn = "";
+        displaySmall.textContent = "";
+        //restoring earlier number which is stored in firstOperand
+        currentNumber = firstOperand;
+
+        //changing 1 below line to experiment
+        // displaySmall.textContent = currentNumber;
+        displayBig.textContent = currentNumber;
+        firstOperand = "";
+
+    } else {
+        currentNumber = currentNumber.slice(0, -1);
+
+        displayBig.textContent = currentNumber;
+    }
+
+});
 
 
 
