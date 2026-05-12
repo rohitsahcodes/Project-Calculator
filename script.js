@@ -17,6 +17,7 @@ displayBig.textContent = "";
 //when digit(1 to 9 plus .) click do following
 for (let digit of allDigits) {
     digit.addEventListener("click", (event) => {
+        if(event.target.textContent === "." && currentNumber.includes(".")) return;
 
 
         currentNumber += event.target.textContent;
@@ -32,8 +33,33 @@ for (let digit of allDigits) {
 
 //when operator button pressed
 let allOperators = document.querySelectorAll(".operator");
+let chain = "";
 for (let operator of allOperators) {
     operator.addEventListener("click", (event) => {
+
+        //check whether if idiot clicked operaor without operand firstOperand
+        if(currentNumber === "" && firstOperand === "") return;
+
+        //deletable code if statement only
+        if (firstOperand != "" && currentNumber != "") {
+            secondOperand = currentNumber;
+
+            chain = operate(firstOperand, operatorBtn, secondOperand);
+            if(chain === undefined) return;  //so that it just skip when it got undefined
+
+            //chek if chain is is decimal or not if yes then take no more than 3 after deciaml
+            if (Number.isInteger(chain)) {
+                displayBig.textContent = chain;
+            } else {
+                displayBig.textContent = parseFloat(chain.toFixed(3));
+            }
+
+
+            // changing chain to string because slice only works on sting which i am using...
+            currentNumber = String(chain);
+
+        }
+
 
         if (currentNumber === "") {
             operatorBtn = event.target.textContent;
@@ -60,9 +86,12 @@ for (let operator of allOperators) {
 let equalsBtn = document.querySelector("#equals");
 let soln;
 equalsBtn.addEventListener("click", (event) => {
+    //checking if idiot is pressiong "=" non-stop
+    if (operatorBtn === "" || currentNumber === "") return;  
     secondOperand = currentNumber;
 
     soln = operate(firstOperand, operatorBtn, secondOperand);
+    if(soln === undefined) return;
 
     //chek if soln is is decimal or not if yes then take no more than 3 after deciaml
     if (Number.isInteger(soln)) {
@@ -75,6 +104,10 @@ equalsBtn.addEventListener("click", (event) => {
     // changing soln to string because slice only works on sting which i am using...
     currentNumber = String(soln);
 
+    //i think deletable code
+    firstOperand = "";
+    operatorBtn = "";
+
 
 });
 
@@ -82,8 +115,13 @@ equalsBtn.addEventListener("click", (event) => {
 //When "CLEAR" button pressed
 let clearBtn = document.querySelector("#clear");
 function whenClearClick() {
-    location.reload();
-    // console.log("Hello, there!");
+
+    firstOperand = "";
+    secondOperand = 0;
+    operatorBtn = "";
+    currentNumber = "";
+    displayBig.textContent = "";
+    displaySmall.textContent = "";
 
 }
 clearBtn.addEventListener("click", whenClearClick);
@@ -155,16 +193,19 @@ deleteBtn.addEventListener("click", event => {
 
 //function to operate one by one 
 function operate(firstOperand, operator, secondOperand) {
-
+    let result;
+    
     if (operator === "+") {
-        return add(firstOperand, secondOperand);
+        result = add(firstOperand, secondOperand);
     } else if (operator === "-") {
-        return subtract(firstOperand, secondOperand);
+        result = subtract(firstOperand, secondOperand);
     } else if (operator === "*") {
-        return multiply(firstOperand, secondOperand);
+        result = multiply(firstOperand, secondOperand);
     } else if (operator === "÷") {
-        return divide(firstOperand, secondOperand);
+        result = divide(firstOperand, secondOperand);
     }
+
+    return result;
 }
 
 
@@ -177,17 +218,20 @@ function add(a, b) {
 
 //function to subtract two numbers
 function subtract(a, b) {
-    return a - b;
+    return parseFloat(a) - parseFloat(b);
 }
 
 //function to multiply two numberts
 function multiply(a, b) {
-    return a * b;
+    return parseFloat(a) * parseFloat(b);
 }
+
+
 
 //function to divide two numbers
 function divide(a, b) {
-    return (a / b);
+    if (parseFloat(b)===0) {
+        displayBig.textContent = "ARE YOU IDIOT?";
+        return;
+    } else return parseFloat(a) / parseFloat(b);
 }
-
-
